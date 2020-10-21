@@ -15,10 +15,8 @@ app.listen(app.get('port'), () => {
 
 app.post('/', (request, response) => {
   const requestData = request.body;
-  console.log(requestData)
   const finalHash = hash.sha256().update(key).digest(requestData)
   const createToken = toHexString(finalHash)
-  
   const originalRequest = Object.values(requestData)
   response.send(`id=${originalRequest}={${createToken}}`)
 });
@@ -27,5 +25,5 @@ function toHexString(byteArray) {
   return Array.from(byteArray, function(byte) {
     return ('0' + (byte & 0xFF).toString(16)).slice(-2);
   }).join('')
-  
+
 }
